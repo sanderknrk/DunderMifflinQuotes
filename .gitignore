@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### sqlite db ###
-./quotes.db
+/quotes.db
