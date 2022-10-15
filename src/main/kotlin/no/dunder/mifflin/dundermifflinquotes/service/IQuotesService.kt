@@ -6,5 +6,5 @@ interface IQuotesService {
 
     fun getQuotes(length: Int): List<Quote>
 
-    fun getRandomQuote(): Quote
+    fun getRandomQuote(): Quote?
 }
