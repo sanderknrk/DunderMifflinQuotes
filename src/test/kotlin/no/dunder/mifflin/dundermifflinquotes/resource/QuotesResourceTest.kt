@@ -32,12 +32,26 @@ class QuotesResourceTest(@Autowired val mvc: MockMvc, @Autowired val jsonQuote: 
         given(quotesService.getRandomQuote()).willReturn(quote)
 
         // Act
-        val endpoint = "/quotes/random"
+        val endpoint = "/quote"
         val response = mvc.perform(get(endpoint)).andReturn().response
 
         // Assert
         assert(response.status == HttpStatus.OK.value())
         assert(response.contentAsString == jsonQuote.write(quote).json)
+    }
+
+    @Test
+    fun getRandomQuote_noQuotes_returnsNull() {
+        // Arrange
+        given(quotesService.getRandomQuote()).willReturn(null)
+
+        // Act
+        val endpoint = "/quote"
+        val response = mvc.perform(get(endpoint)).andReturn().response
+
+        // Assert
+        assert(response.status == HttpStatus.OK.value())
+        assert(response.contentAsString.isEmpty())
     }
 
     @Test
@@ -69,6 +83,6 @@ class QuotesResourceTest(@Autowired val mvc: MockMvc, @Autowired val jsonQuote: 
     }
 
     private fun getRandomQuote(): Quote {
-        return Quote(Random.nextLong(), Random.nextInt(), Random.nextInt(), Random.nextInt(), "line", "speaker", false)
+        return Quote(Random.nextInt(), Random.nextInt(), Random.nextInt(), Random.nextInt(), "line", "speaker", false)
     }
 }

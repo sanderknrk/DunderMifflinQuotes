@@ -4,7 +4,7 @@ import no.dunder.mifflin.dundermifflinquotes.domain.dto.Quote
 
 interface IQuotesService {
 
-    fun getQuotes(length: Int): List<Quote>
+    fun getQuotes(size: Int): List<Quote>
 
     fun getRandomQuote(): Quote?
 }

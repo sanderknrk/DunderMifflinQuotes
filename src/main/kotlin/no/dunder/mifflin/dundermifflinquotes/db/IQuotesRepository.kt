@@ -6,8 +6,8 @@ interface IQuotesRepository {
     fun create(quote: Quote)
     fun createMany(quotes: List<Quote>)
     fun getAll(): List<Quote>
-    fun get(id: Long): Quote?
+    fun get(id: Int): Quote?
     fun update(quote: Quote)
-    fun delete(id: Long)
-    fun warmUp()
+    fun delete(id: Int)
+    fun loadCsv()
 }
