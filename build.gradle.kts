@@ -42,8 +42,10 @@ dependencies {
     implementation("org.xerial:sqlite-jdbc:3.39.3.0")
 
     // Csv
-
     implementation("org.apache.commons:commons-csv:1.9.0")
+
+    // Auth
+    implementation("com.auth0:java-jwt:4.1.0")
 
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
