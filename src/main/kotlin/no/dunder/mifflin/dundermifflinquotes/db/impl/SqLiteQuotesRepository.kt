@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Repository
 
 @Repository
-class SqLiteQuotesRepository(val resourceService: IResourceService) : IQuotesRepository {
+class SqLiteQuotesRepository(private val resourceService: IResourceService) : IQuotesRepository {
 
     private val logger: Logger = LoggerFactory.getLogger(SqLiteQuotesRepository::class.java)
 

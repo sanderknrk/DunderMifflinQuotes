@@ -18,9 +18,9 @@ class ApplicationConfig {
     @Bean
     fun jwtTokenValidator(): JWTTokenValidator? {
         return JWTTokenValidator(
+            jwtSecrets,
             JWT_ISSUER,
-            JWT_AUDIENCE,
-            jwtSecrets
+            JWT_AUDIENCE
         )
     }
 }

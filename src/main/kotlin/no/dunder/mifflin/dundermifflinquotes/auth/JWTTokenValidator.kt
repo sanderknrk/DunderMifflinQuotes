@@ -9,13 +9,16 @@ import com.auth0.jwt.interfaces.Payload
 import org.slf4j.LoggerFactory
 import java.util.*
 
-class JWTTokenValidator(private val issuer: String, private val audience: String, private val secretsBySubject: Map<String, String>) {
+class JWTTokenValidator(
+    secretsBySubject: Map<String, String>,
+    private val issuer: String,
+    private val audience: String) {
     private val logger = LoggerFactory.getLogger(JWTTokenValidator::class.java)
     private val verifiersBySubject = HashMap<String, JWTVerifier>()
 
     init {
         for (subject in secretsBySubject.keys)
-            addJwtVerifier(subject)
+            addJwtVerifier(subject, secretsBySubject[subject]!!)
     }
 
     fun authenticate(jwtToken: String): AccessTokenPrincipal {
@@ -32,10 +35,10 @@ class JWTTokenValidator(private val issuer: String, private val audience: String
         return AccessTokenPrincipal(decodedJWT.subject)
     }
 
-    private fun addJwtVerifier(subject: String) {
+    private fun addJwtVerifier(subject: String, secret: String) {
         logger.info("Creating JWT verifier for subject: {}", subject)
         val jwtVerifier =
-            JWT.require(Algorithm.HMAC256(secretsBySubject[subject]))
+            JWT.require(Algorithm.HMAC256(secret))
             .withIssuer(issuer)
             .withAudience(audience)
             .withSubject(subject).build()

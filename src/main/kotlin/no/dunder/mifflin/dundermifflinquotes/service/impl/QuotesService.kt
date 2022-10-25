@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 import kotlin.random.Random
 
 @Service
-class QuotesService(val quotesRepository: IQuotesRepository) : IQuotesService {
+class QuotesService(private val quotesRepository: IQuotesRepository) : IQuotesService {
     override fun getQuotes(size: Int): List<Quote> {
         val orderedQuotes = quotesRepository.getAll()
         val quotes = orderedQuotes.shuffled()

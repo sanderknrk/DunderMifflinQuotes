@@ -13,7 +13,7 @@ import java.io.Reader
 
 
 @Service
-class ResourceService(val resourceLoader: ResourceLoader) : IResourceService {
+class ResourceService(private val resourceLoader: ResourceLoader) : IResourceService {
 
     override fun getQuotesFromCsvFile(): List<Quote> {
         val quotes = ArrayList<Quote>()

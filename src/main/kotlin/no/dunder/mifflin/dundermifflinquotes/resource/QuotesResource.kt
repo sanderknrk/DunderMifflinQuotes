@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class QuotesResource(val quotesService: IQuotesService) {
+class QuotesResource(private val quotesService: IQuotesService) {
 
     @GetMapping("/quotes")
     fun getQuotes(@RequestParam size: Int): List<Quote> {
