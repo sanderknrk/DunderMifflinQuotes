@@ -22,7 +22,7 @@ class JWTTokenValidator(
     }
 
     fun authenticate(jwtToken: String): AccessTokenPrincipal {
-        val payload = parsePayloadWithoutVerification(jwtToken)
+        val payload = jwtToken.parsePayloadWithoutVerification()
         val subject = payload.subject
         val jwtVerifier = verifiersBySubject[subject]
 
@@ -45,25 +45,22 @@ class JWTTokenValidator(
         verifiersBySubject[subject] = jwtVerifier
     }
 
-    private fun parsePayloadWithoutVerification(jwtToken: String) : Payload {
-        val parts: List<String?> = splitToken(jwtToken)
-
-        val base64EncodedClaims = parts[1]
-
+    private fun String.parsePayloadWithoutVerification() : Payload {
+        val base64EncodedClaims = this.getFirstPartOfToken()
         val jsonClaims = String(Base64.getDecoder().decode(base64EncodedClaims))
         return JWTParser().parsePayload(jsonClaims)
     }
 
-    private fun splitToken(token: String) : List<String> {
-        val parts = token.split(".")
+    private fun String.getFirstPartOfToken() : String {
+        val parts = this.split(".")
 
-        if (token.endsWith(".") && parts.size == 2)
-            return listOf(parts[0], parts[1], "")
+        if (this.endsWith(".") && parts.size == 2)
+            return parts[0]
 
         if (parts.size != 3)
             throw JWTDecodeException(String.format("The token was expected to have 3 parts, but got %s.", parts.size))
 
-        return parts
+        return parts[1]
     }
 
 }
