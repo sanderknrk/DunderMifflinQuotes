@@ -6,14 +6,15 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
+private const val JWT_ISSUER = "DunderMifflinQuotes"
+private const val JWT_AUDIENCE = "UI-DunderMifflinQuotes"
+
 @EnableConfigurationProperties
 @Configuration
 @ConfigurationProperties
 class ApplicationConfig {
 
     lateinit var jwtSecrets: Map<String, String>
-    private val JWT_ISSUER = "DunderMifflinQuotes"
-    private val JWT_AUDIENCE = "UI-DunderMifflinQuotes"
 
     @Bean
     fun jwtTokenValidator(): JWTTokenValidator? {
