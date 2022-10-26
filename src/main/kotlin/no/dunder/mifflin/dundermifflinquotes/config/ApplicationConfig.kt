@@ -17,11 +17,5 @@ class ApplicationConfig {
     lateinit var jwtSecrets: Map<String, String>
 
     @Bean
-    fun jwtTokenValidator(): JWTTokenValidator? {
-        return JWTTokenValidator(
-            jwtSecrets,
-            JWT_ISSUER,
-            JWT_AUDIENCE
-        )
-    }
+    fun jwtTokenValidator(): JWTTokenValidator = JWTTokenValidator(jwtSecrets, JWT_ISSUER, JWT_AUDIENCE)
 }
